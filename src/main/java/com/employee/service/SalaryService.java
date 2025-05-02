@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.employee.exception.UserNotFoundException;
 import com.employee.model.Salary;
 import com.employee.repository.SalaryRepository;
 
@@ -19,7 +20,7 @@ public class SalaryService {
 	}
 	
 	public Salary employeesById(Long id) {
-		return salaryRepository.findById(id).orElse(null);
+		return salaryRepository.findById(id).orElseThrow(()->new UserNotFoundException("EmployeeSalary with ID " + id + " not found"));
 	}
 	
 	public Salary addSalary(Salary salary) {

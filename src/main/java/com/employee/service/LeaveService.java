@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.employee.exception.UserNotFoundException;
 import com.employee.model.Leave;
 import com.employee.repository.LeaveRepository;
 
@@ -19,7 +20,7 @@ public class LeaveService {
 	}
 	
 	public Leave employeeLeaveById(Long id) {
-		return leaveRepository.findById(id).orElse(null);
+		return leaveRepository.findById(id).orElseThrow(()->new UserNotFoundException("Employee with ID " + id + " not found"));
 	}
 	
 	public Leave employeeApplyingLeaves(Leave leave) {

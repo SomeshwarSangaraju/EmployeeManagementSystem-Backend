@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.employee.exception.UserNotFoundException;
 import com.employee.model.Login;
 import com.employee.repository.LoginRepository;
 
@@ -18,7 +19,7 @@ public class LoginService {
 	}
 	
 	public Login userDetailsById(Long id) {
-		return loginRepository.findById(id).orElse(null);
+		return loginRepository.findById(id).orElseThrow(()->new UserNotFoundException("Employee Login with ID " + id + " not found"));
 	}
 
 	public Login signUpUser(Login login) {
